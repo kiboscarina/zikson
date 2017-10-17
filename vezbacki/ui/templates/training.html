@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>trainings</title>
+    <script type="text/javascript">
+
+      function initMap(position) {
+        if (position) {
+          console.log(position);
+          var location = { lat: position.coords.latitude, lng: position.coords.longitude };
+          var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 18,
+            center: location,
+          });
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            animation: google.maps.Animation.BOUNCE
+          });
+        }
+      }
+
+      function errorHandler(error) {
+        const x = document.getElementById('error_message');
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+          case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+          case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+          case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+        }
+      }
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          const p = navigator.geolocation.getCurrentPosition(initMap, errorHandler);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+    </script>
+
+  </head>
+  <body onload="getLocation()">
+<!--dobijanje kordinata od usera---->
+<div id="map" style="height:500px; width: 50%;"></div>
+  <div id='error_message'>
+
+  </div>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB26435dwCS6teaxf8qj6pNkAlk73vFt7s&callback=initMap" type="text/javascript"></script>
+</body>

@@ -1,0 +1,12 @@
+{% for n1 in news %}
+<li class="col-md-3 col-sm-6 col-xs-12">
+    <div class="thumbnail">
+      <img src="img/h1.jpeg">post.{{n1.id}}
+      <div class="caption">
+        <h3><a href="#">{{n1.hedline}}</a></h3>
+          <p>{{n1.text|truncatechars:100}}</p>
+          <a href="{% url 'wholenews' n1.id %}" class="btn btn-link" role="button">More</a>
+      </div>
+      </div>
+</li>
+{% endfor %}
